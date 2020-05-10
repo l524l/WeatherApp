@@ -8,5 +8,6 @@ public class PrimaryController {
     @FXML
     private void switchToSecondary() throws IOException {
         System.out.println("It's work2!");
+        Test.Test();
     }
 }

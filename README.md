@@ -1,2 +1,3 @@
-#Weather-App
-Weather API: https://openweathermap.org/api/hourly-forecast
+# Weather-App
+
+**Weather API:** [https://www.weatherbit.io/](https://www.weatherbit.io/)

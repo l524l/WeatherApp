@@ -1,18 +1,22 @@
 package com.l524l.weather;
 
+import com.l524l.exception.CityNotFoundException;
+import com.l524l.exception.RequestExcepion;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Arrays;
 
 /**
@@ -26,7 +30,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("WeatherMap");
+        stage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
         stage.setResizable(false);
+
+
         stage.show();
     }
 

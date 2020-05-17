@@ -1,3 +1,76 @@
 .fon{
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
+}
+.left_pane{
+	-fx-background-color: #444444FF;
+	-fx-opacity: 35%;
+
+}
+
+.search_city{
+	-fx-background-radius: 10px;
+	-fx-background-color: #FFFFFF;
+	-fx-font-family: Geneva, Arial, Helvetica, sans-serif;
+	-fx-font-size: 14px;
+
+}
+
+.search_button{
+	/*#D4803FFF */
+	-fx-background-radius: 10px;
+	-fx-background-color: #C23172FF;
+	-fx-background-insets: 0;
+}
+.search_button:hover{
+	-fx-background-color: #3AC487FF;
+
+}
+.search_button .text{
+	-fx-fill:#FFFFFF;
+	-fx-font-weight:bold;
+	-fx-font-size: 14px;
+}
+
+.search_country{
+	/*-fx-outer-border: 10;*/
+	-fx-background-radius: 10px;
+	-fx-inner-border: 0px;
+}
+.search_country>*.list-cell {
+	-fx-background-radius: 10px 0px 0px 10px;
+	-fx-background-color: #444444FF,#FFFFFF;
+	-fx-font-size: 14px;
+}
+.search_country>*.list-cell .text{
+	-fx-font-size: 14px;
+	-fx-fill:black;
+}
+
+.search_country>*.arrow-button{
+	-fx-background-radius: 0px 10px 10px 0px;
+	-fx-background-color: #C23172FF;
+}
+.search_country>*.arrow-button:hover{
+	-fx-background-color: #3AC487FF;
+}
+.search_country>*.arrow-button>*.arrow{
+	-fx-background-color: #FFFFFF;
+}
+
+.text{
+	-fx-font-size: 12px;
+	-fx-font-family: Geneva, Arial, Helvetica, sans-serif;	
+}
+.progress-bar>*.bar {
+	-fx-background-color: red;
+}
+.title .text{
+	-fx-fill: white;
+	-fx-font-weight:bold;
+	-fx-font-size: 18px;
+}
+.title_city .text{
+	-fx-fill: white;
+	-fx-font-weight:bold;
+	-fx-font-size: 24px;
 }

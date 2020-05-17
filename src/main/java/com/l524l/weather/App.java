@@ -7,6 +7,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("WeatherMap");
         stage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
+        stage.getIcons().add(new Image(getClass().getResource("images/icon.png").toExternalForm()));
         stage.setResizable(false);
 
 

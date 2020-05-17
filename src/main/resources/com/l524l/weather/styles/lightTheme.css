@@ -16,7 +16,7 @@
 }
 
 .search_button{
-	/*#D4803FFF */
+		/*#D4803FFF */
 	-fx-background-radius: 10px;
 	-fx-background-color: #C23172FF;
 	-fx-background-insets: 0;
@@ -34,7 +34,6 @@
 .search_country{
 	/*-fx-outer-border: 10;*/
 	-fx-background-radius: 10px;
-	-fx-inner-border: 0px;
 }
 .search_country>*.list-cell {
 	-fx-background-radius: 10px 0px 0px 10px;

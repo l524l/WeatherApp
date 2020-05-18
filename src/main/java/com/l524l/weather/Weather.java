@@ -13,6 +13,15 @@ public class Weather {
     private String description;
     private String icon;
     private double snow;
+    private String datetime;
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
 
     public double getSnow() {
         return snow;

@@ -14,6 +14,7 @@ public class JSONAdapter {
         jsonAnsver = request.makeRequest(city, contryCode);
         if (request.isRequestError()) throw new RequestExcepion();
         if (!jsonAnsver.isEmpty()){
+            System.out.println(jsonAnsver);
             jsonObject = new JSONObject(jsonAnsver);
             JSONObject object = jsonObject.getJSONArray("data").getJSONObject(0);
             weather.setTemp(object.getDouble("temp"));
@@ -28,6 +29,7 @@ public class JSONAdapter {
             weather.setDescription(object.getJSONObject("weather").getString("description"));
             weather.setIcon(object.getJSONObject("weather").getString("icon"));
             weather.setSnow(object.getDouble("snow"));
+            weather.setDatetime(object.getString("datetime"));
         }else throw new CityNotFoundException();
 
         return weather;

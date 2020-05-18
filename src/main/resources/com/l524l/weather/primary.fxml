@@ -17,6 +17,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" styleClass="fon" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.l524l.weather.MainController">
@@ -50,11 +51,16 @@
             </Button>
          </children>
       </VBox>
-      <VBox cacheShape="false" disable="true" layoutX="204.0" layoutY="32.0" prefHeight="310.0" prefWidth="426.0">
+      <VBox fx:id="dataBord" cacheShape="false" disable="true" layoutX="204.0" layoutY="32.0" prefHeight="310.0" prefWidth="426.0">
          <children>
             <Label id="title" fx:id="label_city" styleClass="title_city" text="Город:" />
             <Label fx:id="label_date" styleClass="title" text="Погода на:" />
-            <Label fx:id="label_desck" styleClass="title" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="label_desck" styleClass="title" />
+                  <ImageView fx:id="weatherIcon" cache="true" fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
             <Label fx:id="label_temp" styleClass="title" text="Температура:" />
             <Label fx:id="label_press" styleClass="title" text="Атмосферное давление:" />
             <Label fx:id="label_vis" styleClass="title" text="Видимость:" />
@@ -72,7 +78,6 @@
             <Insets left="3.0" />
          </padding>
       </VBox>
-      <ImageView cache="true" fitHeight="39.0" fitWidth="39.0" layoutX="375.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" />
       <MenuBar layoutX="15.0" layoutY="384.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="Настройки">

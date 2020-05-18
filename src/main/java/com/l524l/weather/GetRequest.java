@@ -18,6 +18,7 @@ public class GetRequest {
         StringBuffer stringBuffer = new StringBuffer();
         try {
             city = URLEncoder.encode(city, "utf-8");
+            contryCode = URLEncoder.encode(contryCode, "utf-8");
             String url = "https://api.weatherbit.io/v2.0/current?city=" + city +","+ contryCode + "&key=dd7ff70ea0b9468ca0fb3a73c0a4bff8&lang=ru";
             URL getweather = new URL(url);
             URLConnection connection = getweather.openConnection();

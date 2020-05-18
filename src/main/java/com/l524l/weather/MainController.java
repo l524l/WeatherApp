@@ -1,18 +1,20 @@
 package com.l524l.weather;
 
+import com.l524l.exception.CityNotFoundException;
+import com.l524l.exception.RequestExcepion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 public class MainController {
 
+    @FXML
+    private ImageView weatherIcon;
     @FXML
     private ImageView backgroundImage;
     @FXML
@@ -51,10 +53,26 @@ public class MainController {
     private ToggleGroup type;
     @FXML
     private RadioMenuItem compactTheme;
+    @FXML
+    private VBox dataBord;
+
+    JSONAdapter jsonAdapter = new JSONAdapter();
 
     @FXML
     public void initialize() {
-
+        ObservableList s = FXCollections.observableArrayList(
+                "RU Россия",
+                "UA Украина",
+                "UZ Республика Узбекистан",
+                "TM Туркменистан",
+                "TJ Республика Таджикистан",
+                "MD Республика Молдова",
+                "KG Кыргызская Республика",
+                "KZ Республика Казахстан",
+                "BY Республика Беларусь",
+                "AM Республика Армения",
+                "AZ Азербайджанская Республика");
+        chouseCountry.setItems(s);
     }
 
     @FXML
@@ -64,7 +82,48 @@ public class MainController {
 
     @FXML
     void searchWeather(ActionEvent event) {
+        Weather weather;
+        if (!chouseCountry.getSelectionModel().isEmpty() & !chouseCity.getText().trim().isEmpty()){
+            try {
+                System.out.println(chouseCountry.getSelectionModel().getSelectedItem().toString());
+                String s = chouseCountry.getSelectionModel().getSelectedItem().toString();
+                System.out.println(s.substring(0,2));
+                System.out.println(chouseCity.getText());
+                weather = jsonAdapter.getWeather(chouseCity.getText().trim(),s.substring(0,2));
+                label_city.setText("Город: " + chouseCity.getText().trim());
+                label_date.setText("Погода на: " + weather.getDatetime());
+                label_desck.setText(weather.getDescription());
+                label_temp.setText(String.format("Температура %s °С (ощущается как %s °C)",weather.getTemp(),weather.getApp_temp()));
+                label_press.setText(String.format("Атмосферное давление: %s mb",weather.getPress()));
+                label_vis.setText(String.format("Видимость: %s км",weather.getVisibility()));
+                label_windsp.setText(String.format("Скорость ветра: %s M/C",weather.getWind_speed()));
+                label_windto.setText(String.format("Направление ветра: %s",weather.getWind_cdir_full()));
+                label_hr.setText(String.format("Относительная влажность: %s%%",weather.getRh()));
+                label_sunrise.setText(String.format("Восход: %s",weather.getSunrise()));
+                label_sunset.setText(String.format("Закат: %s",weather.getSunset()));
+                System.out.println(weather.getIcon());
+                weatherIcon.setImage(new Image(getClass().getResource("images/weatherIcon/" + weather.getIcon() +".png").toExternalForm()));
 
+
+                dataBord.setDisable(false);
+
+            } catch (RequestExcepion requestExcepion) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Внимание");
+                alert.setHeaderText("Ошибка подключения!");
+                alert.setContentText("Проверте подключен ли пк к интернету");
+                alert.showAndWait();
+            } catch (CityNotFoundException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Внимание!");
+                alert.setHeaderText("Город не найден!");
+                alert.setContentText("Проверте правильность введённой информации");
+                alert.showAndWait();
+            }finally {
+
+            }
+        }
     }
 
     @FXML

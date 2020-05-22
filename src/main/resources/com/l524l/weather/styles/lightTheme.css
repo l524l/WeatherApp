@@ -82,15 +82,31 @@
 .menu-bar>*.container>*.menu-button:showing{
 	-fx-background-color: #C23172FF;
 }
-.list-view{
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+    -fx-background-color: #3AC487FF;
+    -fx-text-fill: white;
+}
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
+    -fx-background-color: #C23172FF;
+    -fx-text-fill: white;
+}
+.list-view>*.virtual-flow>*.scroll-bar:vertical { /* FX theme stylesheet */
 	-fx-background-color: white;
 }
-.list-view>*.virtual-flow>*.corner { /* FX theme stylesheet */
-	-fx-background-color: red;
+.list-view>*.virtual-flow>*.scroll-bar:vertical .thumb{ /* FX theme stylesheet */
+	-fx-background-color: #C23172FF;
 }
-.menu-button:openvertically>*.arrow-button>*.arrow { /* FX theme stylesheet */
-	-fx-background-color: red;
+.list-view>*.virtual-flow>*.scroll-bar:vertical .thumb:hover{ /* FX theme stylesheet */
+	-fx-background-color: #3AC487FF;
 }
+.list-view>*.virtual-flow>*.scroll-bar:vertical .decrement-button:hover{ /* FX theme stylesheet */
+	-fx-background-color: #C23172FF;
+}
+.list-view>*.virtual-flow>*.scroll-bar:vertical .increment-button:hover{ /* FX theme stylesheet */
+	-fx-background-color: #C23172FF;
+}
+
 .context-menu{
 	-fx-background-color: white;
 }
@@ -99,4 +115,8 @@
 }
 .menu-item:focused{
 	-fx-background-color: #C23172FF;
+}
+
+.toggle-button { /* FX theme stylesheet */
+-fx-background-color: red;
 }

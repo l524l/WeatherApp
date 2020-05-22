@@ -11,6 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.*;
+import java.util.Properties;
+
 public class MainController {
 
     @FXML
@@ -55,11 +58,16 @@ public class MainController {
     private RadioMenuItem compactTheme;
     @FXML
     private VBox dataBord;
-
-    JSONAdapter jsonAdapter = new JSONAdapter();
+    private Properties properties = new Properties();
+    private JSONAdapter jsonAdapter = new JSONAdapter();
 
     @FXML
     public void initialize() {
+        try {
+            properties.load(getClass().getResourceAsStream("application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ObservableList s = FXCollections.observableArrayList(
                 "RU Россия",
                 "UA Украина",
@@ -85,10 +93,7 @@ public class MainController {
         Weather weather;
         if (!chouseCountry.getSelectionModel().isEmpty() & !chouseCity.getText().trim().isEmpty()){
             try {
-                System.out.println(chouseCountry.getSelectionModel().getSelectedItem().toString());
                 String s = chouseCountry.getSelectionModel().getSelectedItem().toString();
-                System.out.println(s.substring(0,2));
-                System.out.println(chouseCity.getText());
                 weather = jsonAdapter.getWeather(chouseCity.getText().trim(),s.substring(0,2));
                 label_city.setText("Город: " + chouseCity.getText().trim());
                 label_date.setText("Погода на: " + weather.getDatetime());
@@ -101,7 +106,6 @@ public class MainController {
                 label_hr.setText(String.format("Относительная влажность: %s%%",weather.getRh()));
                 label_sunrise.setText(String.format("Восход: %s",weather.getSunrise()));
                 label_sunset.setText(String.format("Закат: %s",weather.getSunset()));
-                System.out.println(weather.getIcon());
                 weatherIcon.setImage(new Image(getClass().getResource("images/weatherIcon/" + weather.getIcon() +".png").toExternalForm()));
 
 
@@ -128,6 +132,19 @@ public class MainController {
 
     @FXML
     void setDarckMode(ActionEvent event) {
+        if (darckMode.isSelected()){
+            backgroundImage.getScene().getStylesheets().clear();
+            backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darckTheme.css").toExternalForm());
+            backgroundImage.setImage(new Image(getClass().getResource("images/background/night.png").toExternalForm()));
+            properties.put("darkMode","true");
+        }else {
+            backgroundImage.getScene().getStylesheets().clear();
+
+            backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
+
+            backgroundImage.setImage(new Image(getClass().getResource("images/background/day.png").toExternalForm()));
+            properties.put("darkMode","false");
+        }
 
     }
 

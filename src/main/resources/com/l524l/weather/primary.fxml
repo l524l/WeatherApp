@@ -24,7 +24,7 @@
    <children>
       <ImageView fx:id="backgroundImage" fitHeight="480.0" fitWidth="640.0" layoutX="200.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@images/background/day.jpg" />
+            <Image url="@images/background/day.png" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="374.0" prefWidth="640.0" styleClass="left_pane" AnchorPane.bottomAnchor="106.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

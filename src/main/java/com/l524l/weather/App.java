@@ -9,10 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+
 
 import java.io.*;
 import java.net.URL;
@@ -35,8 +32,6 @@ public class App extends Application {
         stage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
         stage.getIcons().add(new Image(getClass().getResource("images/icon.png").toExternalForm()));
         stage.setResizable(false);
-
-
         stage.show();
     }
 

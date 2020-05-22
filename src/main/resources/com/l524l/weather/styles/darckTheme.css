@@ -74,7 +74,10 @@
 	-fx-font-size: 24px;
 }
 .menu-bar{
-	-fx-background-color: white;
+	-fx-background-color: #545454FF;
+}
+.menu-bar>*.container>*.menu-button>*.label{
+	-fx-text-fill:white;
 }
 .menu-bar>*.container>*.menu-button:hover{
 	-fx-background-color: #C23172FF;
@@ -83,7 +86,7 @@
 	-fx-background-color: #C23172FF;
 }
 .list-view{
-	-fx-background-color: white;
+	-fx-background-color: #545454FF;
 }
 .list-view>*.virtual-flow>*.corner { /* FX theme stylesheet */
 	-fx-background-color: red;
@@ -92,11 +95,23 @@
 	-fx-background-color: red;
 }
 .context-menu{
-	-fx-background-color: white;
+	-fx-background-color: #545454FF;
 }
 .menu-item:hover{
 	-fx-background-color: #C23172FF;
 }
+.menu-item >.label {
+    -fx-text-fill: white;
+}
 .menu-item:focused{
 	-fx-background-color: #C23172FF;
+}
+.radio-menu-item:checked > .left-container > .radio {
+    -fx-background-color: white;
+}
+.check-menu-item:checked > .left-container > .check {
+    -fx-background-color: white;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: red;
 }

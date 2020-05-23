@@ -6,10 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Properties;
@@ -58,16 +62,12 @@ public class MainController {
     private RadioMenuItem compactTheme;
     @FXML
     private VBox dataBord;
-    private Properties properties = new Properties();
+
     private JSONAdapter jsonAdapter = new JSONAdapter();
+    private boolean dMod = false;
 
     @FXML
     public void initialize() {
-        try {
-            properties.load(getClass().getResourceAsStream("application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         ObservableList s = FXCollections.observableArrayList(
                 "RU Россия",
                 "UA Украина",
@@ -84,7 +84,15 @@ public class MainController {
     }
 
     @FXML
-    void changeTheme(ActionEvent event) {
+    void changeTheme(ActionEvent event) throws IOException {
+        if(compactTheme.isSelected()){
+            App.setRoot("primaryLittle");
+            App.getStage().setWidth(410);
+        }else {
+            App.setRoot("primary");
+            if (dMod) backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darckTheme.css").toExternalForm());
+            App.getStage().setWidth(640);
+        }
 
     }
 
@@ -112,7 +120,6 @@ public class MainController {
                 dataBord.setDisable(false);
 
             } catch (RequestExcepion requestExcepion) {
-
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Внимание");
                 alert.setHeaderText("Ошибка подключения!");
@@ -136,21 +143,32 @@ public class MainController {
             backgroundImage.getScene().getStylesheets().clear();
             backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darckTheme.css").toExternalForm());
             backgroundImage.setImage(new Image(getClass().getResource("images/background/night.png").toExternalForm()));
-            properties.put("darkMode","true");
+            dMod = true;
         }else {
             backgroundImage.getScene().getStylesheets().clear();
 
             backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
 
             backgroundImage.setImage(new Image(getClass().getResource("images/background/day.png").toExternalForm()));
-            properties.put("darkMode","false");
+            dMod = false;
         }
 
     }
 
     @FXML
-    void showAbout(ActionEvent event) {
+    void showAbout(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
+        stage.setScene(new Scene(loader.load(),384,427));
+        if (dMod)
+            stage.getScene().getStylesheets().add(getClass().getResource("styles/aboutStyleDark.css").toExternalForm());
+        else
+            stage.getScene().getStylesheets().add(getClass().getResource("styles/aboutStyleLight.css").toExternalForm());
 
+        stage.getIcons().add(new Image(getClass().getResource("images/icon.png").toExternalForm()));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
 }

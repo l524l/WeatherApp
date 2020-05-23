@@ -4,5 +4,7 @@ module com.l524l.weather {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
+    requires java.base;
+
     exports com.l524l.weather;
 }

@@ -1,0 +1,29 @@
+.background{
+	-fx-background-color: #444444FF;
+}
+.title .text{
+	-fx-font-weight:bold;
+	-fx-font-size: 24px;
+	-fx-fill:#FFFFFF;
+	-fx-font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+.text{
+	-fx-fill:#FFFFFF;
+	-fx-font-size: 14px;
+	-fx-font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+.button{
+		/*#D4803FFF */
+	-fx-background-radius: 10px;
+	-fx-background-color: #C23172FF;
+	-fx-background-insets: 0;
+}
+.button:hover{
+	-fx-background-color: #3AC487FF;
+
+}
+.button .text{
+	-fx-fill:#FFFFFF;
+	-fx-font-weight:bold;
+	-fx-font-size: 14px;
+}

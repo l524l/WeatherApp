@@ -1,16 +1,31 @@
 package com.l524l.weather;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.util.JsonGeneratorDelegate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.l524l.exception.CityNotFoundException;
 import com.l524l.exception.RequestExcepion;
 
+import java.io.DataOutput;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.List;
+
 public class JSONAdapter {
-    private Weather weather = new Weather();
-    private String jsonAnsver;
-    private JsonNode node;
+
 
     public Weather getWeather(String city, String contryCode) throws RequestExcepion, CityNotFoundException {
+        Weather weather = new Weather();
+        String jsonAnsver;
+        JsonNode node = null;
+
+
         ObjectMapper mapper = new ObjectMapper();
         GetRequest request = new GetRequest();
         jsonAnsver = request.makeRequest(city, contryCode);
@@ -39,5 +54,23 @@ public class JSONAdapter {
             weather.setDatetime(node.get("datetime").asText());
         }else throw new CityNotFoundException();
         return weather;
+    }
+
+    public Settings getSettings(){
+        JsonNode node = null;
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.getNodeFactory().arrayNode().toString());
+
+
+        Settings settings = new Settings();
+        try {
+            node = mapper.readValue(new File("settings.properties"), JsonNode.class);
+            settings.setCities(mapper.readValue(node.get("city").toString(), new TypeReference<List<String>>(){}));
+            settings.setCompact(node.get("compact").asBoolean());
+            settings.setDarkMode(node.get("dark_mode").asBoolean());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return settings;
     }
 }

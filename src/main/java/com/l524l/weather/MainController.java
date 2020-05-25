@@ -1,5 +1,11 @@
 package com.l524l.weather;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.l524l.exception.CityNotFoundException;
 import com.l524l.exception.RequestExcepion;
 import javafx.collections.FXCollections;
@@ -16,6 +22,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 public class MainController {
@@ -65,39 +74,43 @@ public class MainController {
 
     private JSONAdapter jsonAdapter = new JSONAdapter();
     private boolean dMod = false;
+    private Settings settings;
 
     @FXML
-    public void initialize() {
-        ObservableList s = FXCollections.observableArrayList(
-                "RU Россия",
-                "UA Украина",
-                "UZ Республика Узбекистан",
-                "TM Туркменистан",
-                "TJ Республика Таджикистан",
-                "MD Республика Молдова",
-                "KG Кыргызская Республика",
-                "KZ Республика Казахстан",
-                "BY Республика Беларусь",
-                "AM Республика Армения",
-                "AZ Азербайджанская Республика");
+    public void initialize() throws JsonProcessingException, FileNotFoundException {
+        settings = jsonAdapter.getSettings();
+
+        if (settings.isDarkMode()) {
+            darckMode.setSelected(true);
+            backgroundImage.setImage(new Image(getClass().getResource("images/background/night.png").toExternalForm()));
+            dMod = true;
+        }
+
+        ObservableList s = FXCollections.observableArrayList(settings.getCities());
         chouseCountry.setItems(s);
     }
 
     @FXML
-    void changeTheme(ActionEvent event) throws IOException {
+    void changeTheme() throws IOException {
+        JsonNode node = null;
+        ObjectMapper mapper = new ObjectMapper();
+        node = mapper.readValue(new File("settings.properties"), JsonNode.class);
         if(compactTheme.isSelected()){
             App.setRoot("primaryLittle");
             App.getStage().setWidth(410);
+            ((ObjectNode) node).put("compact",true);
+
+
         }else {
             App.setRoot("primary");
-            if (dMod) backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darckTheme.css").toExternalForm());
             App.getStage().setWidth(640);
+            ((ObjectNode) node).put("compact",false);
         }
-
+        mapper.writeValue(new File("settings.properties"), node);
     }
 
     @FXML
-    void searchWeather(ActionEvent event) {
+    void searchWeather() {
         Weather weather;
         if (!chouseCountry.getSelectionModel().isEmpty() & !chouseCity.getText().trim().isEmpty()){
             try {
@@ -106,7 +119,7 @@ public class MainController {
                 label_city.setText("Город: " + chouseCity.getText().trim());
                 label_date.setText("Погода на: " + weather.getDatetime());
                 label_desck.setText(weather.getDescription());
-                label_temp.setText(String.format("Температура %s °С (ощущается как %s °C)",weather.getTemp(),weather.getApp_temp()));
+                label_temp.setText(String.format("Температура: %s °С (ощущается как %s °C)",weather.getTemp(),weather.getApp_temp()));
                 label_press.setText(String.format("Атмосферное давление: %s mb",weather.getPress()));
                 label_vis.setText(String.format("Видимость: %s км",weather.getVisibility()));
                 label_windsp.setText(String.format("Скорость ветра: %s M/C",weather.getWind_speed()));
@@ -138,25 +151,28 @@ public class MainController {
     }
 
     @FXML
-    void setDarckMode(ActionEvent event) {
+    void setDarckMode() throws IOException {
+        JsonNode node = null;
+        ObjectMapper mapper = new ObjectMapper();
+        node = mapper.readValue(new File("settings.properties"), JsonNode.class);
+        backgroundImage.getScene().getStylesheets().clear();
         if (darckMode.isSelected()){
-            backgroundImage.getScene().getStylesheets().clear();
-            backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darckTheme.css").toExternalForm());
+            backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/darkTheme.css").toExternalForm());
             backgroundImage.setImage(new Image(getClass().getResource("images/background/night.png").toExternalForm()));
             dMod = true;
+            ((ObjectNode) node).put("dark_mode",true);
+
         }else {
-            backgroundImage.getScene().getStylesheets().clear();
-
             backgroundImage.getScene().getStylesheets().add(getClass().getResource("styles/lightTheme.css").toExternalForm());
-
             backgroundImage.setImage(new Image(getClass().getResource("images/background/day.png").toExternalForm()));
             dMod = false;
+            ((ObjectNode) node).put("dark_mode",false);
         }
-
+        mapper.writeValue(new File("settings.properties"), node);
     }
 
     @FXML
-    void showAbout(ActionEvent event) throws IOException {
+    void showAbout() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
         stage.setScene(new Scene(loader.load(),384,427));

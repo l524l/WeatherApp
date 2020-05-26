@@ -59,9 +59,6 @@ public class JSONAdapter {
     public Settings getSettings(){
         JsonNode node = null;
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.getNodeFactory().arrayNode().toString());
-
-
         Settings settings = new Settings();
         try {
             node = mapper.readValue(new File("settings.properties"), JsonNode.class);

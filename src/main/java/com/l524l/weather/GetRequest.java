@@ -23,7 +23,7 @@ public class GetRequest {
             URL getweather = new URL(url);
             URLConnection connection = getweather.openConnection();
             connection.setConnectTimeout(5000);
-            Reader reader = new InputStreamReader(connection.getInputStream());
+            Reader reader = new InputStreamReader(connection.getInputStream(),"utf-8");
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {

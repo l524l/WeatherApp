@@ -1,16 +1,12 @@
 package com.l524l.weather;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.l524l.exception.CityNotFoundException;
 import com.l524l.exception.RequestExcepion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,10 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
 
 public class MainController {
 
@@ -77,7 +69,7 @@ public class MainController {
     private Settings settings;
 
     @FXML
-    public void initialize() throws JsonProcessingException, FileNotFoundException {
+    public void initialize() {
         settings = jsonAdapter.getSettings();
 
         if (settings.isDarkMode()) {

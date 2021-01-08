@@ -16,6 +16,6 @@
 ### Внешний вид
 В приложение присутствует два типа интерфейсов `компактный` и `классический`, а так же тёмная и светлая тема.
 
-![alt text](/demoimg/compact-dark.png) ![alt text](/demoimg/full-dark.png)
+![alt text](/demoimg/compact-dark.png) ![alt text](/demoimg/compact-light.png)
 
-![alt text](/demoimg/compact-light.png) ![alt text](/demoimg/full-light.png)
+![alt text](/demoimg/full-dark.png) ![alt text](/demoimg/full-light.png)
